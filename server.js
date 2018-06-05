@@ -12,7 +12,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
   sendMessageDiscord()
-  setInterval(()=>sendMessageDiscord(),1000*60);
+  setInterval(()=>sendMessageDiscord(),1000*30);
 
 
 });
@@ -22,7 +22,7 @@ client.on('message', message => {
   message.channel.fetchMessages({ limit: 2 })
   .then(messages => {
     const fetchedMsg = messages.last(); // messages is a collection!)
-    fetchedMsg.delete(1000*58);
+    fetchedMsg.delete(1000*30);
   });
 })
 
