@@ -2,34 +2,32 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 var request = require('request');
-var cheerio = require('cheerio');
+var sleep = require('sleep');
 
 const botconfig = require('./botconfig.json');
 
 var listBoss = [];
 
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-
-  sendMessageDiscord()
-  setInterval(()=>sendMessageDiscord(),1000*30);
-
-
+  channel = client.channels.find("name","world-boss-timers");
+  channel.send(`Login as ${client.user.tag}!`);
 });
 
 client.on('message', message => {
 
-  message.channel.fetchMessages({ limit: 2 })
-  .then(messages => {
-    const fetchedMsg = messages.last(); // messages is a collection!)
-    fetchedMsg.delete(1000*30);
-  });
+  channel = client.channels.find("name","world-boss-timers");
+  
+  message.channel.messages.last(2)[0].delete();
+  sendMessageDiscord();
+
+  sleep.sleep(10);
+
 })
 
 function sendMessageDiscord(){
   api = 'https://world-boss-timer-bdoth.firebaseio.com/world_boss.json';
 
-  console.log("update timing...")
+  console.log("-->> Update timing...")
 
   request({url: api, json: true}, function(error, response, data){
       if(!error){
@@ -56,9 +54,9 @@ function sendBossTimer(listBoss){
     }
   }
 
-  client.channels
-  .find("name","world-boss-timers")
-  .send('```'+ text +'```');
+  channel = client.channels.find("name","world-boss-timers");
+
+  channel.send('```'+ text +'```');
   
 }
 
