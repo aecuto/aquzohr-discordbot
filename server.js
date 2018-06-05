@@ -127,7 +127,7 @@ const countdown = (function () {
 
       (d || h || m) && tmp.push(m + 'm');
 
-      tmp.push(s + 's');
+      //tmp.push(s + 's');
 
       return tmp.join('');
   }
