@@ -9,6 +9,11 @@
   "author": "aquzohr",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.3.2"
+    "cheerio": "latest",
+    "discord.js": "^11.3.2",
+    "express": "latest",
+    "phantom": "^4.0.12",
+    "phantomjs-prebuilt": "^2.1.16",
+    "request": "latest"
   }
 }
