@@ -9,22 +9,45 @@ const botconfig = require('./botconfig.json');
 var listBoss = [];
 
 client.on('ready', () => {
-  channel = client.channels.find("name","world-boss-timers");
-  channel.send(`Login as ${client.user.tag}!`);
+  console.log(`Login as ${client.user.tag}!`);
+  autoUptime();
 });
 
+function autoUptime(){
+  var guildList = client.guilds.array();
+  guildList.forEach(guild => guild.channels.find("name","world-boss-timers").send("uptime"));
+}
+
+var i = 0;
 client.on('message', message => {
 
   channel = client.channels.find("name","world-boss-timers");
+  var guildList = client.guilds.array();
   
-  message.channel.messages.last(2)[0].delete();
-  sendMessageDiscord();
+  if(message.content=='uptime'){
 
-  sleep.sleep(10);
+    console.log("================================");
+    console.log("GET MESSAGE ::: uptime :::::::");
+    console.log("================================");
+    
+    async function clear() {
+      message.delete();
+        const fetched = await message.channel.fetchMessages({limit: 99});
+        message.channel.bulkDelete(fetched);
+    }
+    clear();
+
+    i++;
+  }
+
+  if(i==guildList.length){
+    sendMessageDiscord();
+    i=0;
+  }
 
 })
 
-function sendMessageDiscord(){
+function sendMessageDiscord(gchannel){
   api = 'https://world-boss-timer-bdoth.firebaseio.com/world_boss.json';
 
   console.log("-->> Update timing...")
@@ -54,10 +77,9 @@ function sendBossTimer(listBoss){
     }
   }
 
-  channel = client.channels.find("name","world-boss-timers");
+  var guildList = client.guilds.array();
+  guildList.forEach(guild => guild.channels.find("name","world-boss-timers").send('```'+ text +'```'));
 
-  channel.send('```'+ text +'```');
-  
 }
 
 function bossTimer(bosstime,bossday){
