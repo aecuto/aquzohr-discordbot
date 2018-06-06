@@ -13,7 +13,11 @@ express()
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
+  .get('/', (req, res) => {
+    autoUptime(),
+    res.sendFile(__dirname + '/index.html')
+  }
+  )
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 const botconfig = require('./botconfig.json');
@@ -22,7 +26,7 @@ var listBoss = [];
 
 client.on('ready', () => {
   console.log(`Login as ${client.user.tag}!`);
-  autoUptime();
+  process.env.TZ = 'Asia/Bangkok';
 });
 
 function autoUptime(){
