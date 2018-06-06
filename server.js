@@ -161,7 +161,7 @@ function findBossNextSpawn(data){
   for(var i=0;i<5;i++){
     for (var key in data) {
       if(data[key].day==curr_day+i){
-        if(i==0 && hour < data[key].time && hour != 24){
+        if(i==0 && hour < data[key].time){
           listBoss.push({
             name: data[key].name,
             time: data[key].time,
