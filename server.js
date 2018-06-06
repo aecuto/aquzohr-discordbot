@@ -26,12 +26,16 @@ var listBoss = [];
 
 client.on('ready', () => {
   console.log(`Login as ${client.user.tag}!`);
-  process.env.TZ = 'Asia/Bangkok';
 });
 
 function autoUptime(){
   var guildList = client.guilds.array();
-  guildList.forEach(guild => guild.channels.find("name","world-boss-timers").send("uptime"));
+  //console.log(guildList);
+  guildList.forEach(guild => {
+    if(guild.channels.find("name","world-boss-timers")){
+      guild.channels.find("name","world-boss-timers").send("uptime");
+    }
+  });
 }
 
 var i = 0;
@@ -41,10 +45,6 @@ client.on('message', message => {
   var guildList = client.guilds.array();
   
   if(message.content=='uptime'){
-
-    console.log("================================");
-    console.log("GET MESSAGE ::: uptime :::::::");
-    console.log("================================");
     
     async function clear() {
       message.delete();
@@ -57,6 +57,7 @@ client.on('message', message => {
   }
 
   if(i==guildList.length){
+    console.log('NOW:' + guildList.length);
     sendMessageDiscord();
     i=0;
   }
@@ -94,7 +95,11 @@ function sendBossTimer(listBoss){
   }
 
   var guildList = client.guilds.array();
-  guildList.forEach(guild => guild.channels.find("name","world-boss-timers").send('```md\n'+ text +'```'));
+  guildList.forEach(guild => {
+    if(guild.channels.find("name","world-boss-timers")){
+      guild.channels.find("name","world-boss-timers").send('```md\n'+ text +'```');
+    }
+  });
 
 }
 
