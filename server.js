@@ -94,7 +94,7 @@ function sendBossTimer(listBoss){
   }
 
   var guildList = client.guilds.array();
-  guildList.forEach(guild => guild.channels.find("name","world-boss-timers").send('```'+ text +'```'));
+  guildList.forEach(guild => guild.channels.find("name","world-boss-timers").send('```md\n'+ text +'```'));
 
 }
 
@@ -156,7 +156,7 @@ function findBossNextSpawn(data){
   for(var i=0;i<5;i++){
     for (var key in data) {
       if(data[key].day==curr_day+i){
-        if(i==0 && hour < data[key].time){
+        if(i==0 && hour < data[key].time && hour != 24){
           listBoss.push({
             name: data[key].name,
             time: data[key].time,
