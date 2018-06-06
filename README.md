@@ -8,3 +8,7 @@ Invite Bot : https://discordapp.com/api/oauth2/authorize?client_id=4523347242500
 3.ถ้าบอทไม่ทำงานก็เข้าเว็บนี้ >> https://aquzohrbot.herokuapp.com/ เพื่อเปิด sv. บอท เป็น sv. ฟรีใช้ได้เดือนละ 300hr ถ้าเข้าเว็บไม่ได้แสดงว่าหมดเวลาฟรี ปล.อย่าเข้ากันหลายคนเน้อ เดียวบอทรวน :)
 
 เสร็จ
+
+ถ้าเว็บฟรีหมดมาดูเวลาตรงนี้ได้ : https://world-boss-timer-bdoth.firebaseapp.com/
+
+color text: https://gist.github.com/ringmatthew/9f7bbfd102003963f9be7dbcf7d40e51
