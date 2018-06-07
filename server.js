@@ -4,23 +4,29 @@ const client = new Discord.Client();
 var request = require('request');
 var sleep = require('sleep');
 
+const botconfig = require('./botconfig.json');
 
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
 
-express()
+if(botconfig.server=='public'){
+  express()
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => {
-    autoUptime(),
     res.sendFile(__dirname + '/index.html')
   }
   )
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-const botconfig = require('./botconfig.json');
+  setInterval(()=>autoUptime(), botconfig.second*1000);
+
+} else{
+  setInterval(()=>autoUptime(), botconfig.second*1000);
+}
+
 
 var listBoss = [];
 
@@ -29,29 +35,43 @@ client.on('ready', () => {
 });
 
 function autoUptime(){
-  var guildList = client.guilds.array();
-  //console.log(guildList);
-  guildList.forEach(guild => {
-    if(guild.channels.find("name","world-boss-timers")){
-      guild.channels.find("name","world-boss-timers").send("uptime");
+
+  if(botconfig.server == 'public'){
+    var guildList = client.guilds.array();
+    //console.log(guildList);
+    guildList.forEach(guild => {
+      if(guild.channels.find("name",botconfig.channelName)){
+        guild.channels.find("name",botconfig.channelName).send("uptime");
+      }
+    });
+  }else{
+    channel = client.channels.get(botconfig.textChannel);
+    //console.log(channel);
+    if(channel){
+      channel.send("uptime");
     }
-  });
+  }
 }
 
 var i = 0;
 client.on('message', message => {
 
-  channel = client.channels.find("name","world-boss-timers");
+  channel = client.channels.find("name",botconfig.channelName);
   var guildList = client.guilds.array();
   
   if(message.content=='uptime'){
     
     async function clear() {
-      message.delete();
-        const fetched = await message.channel.fetchMessages({limit: 99});
-        message.channel.bulkDelete(fetched);
+      try{
+        message.delete();
+      }catch(error){
+        console.log("-> Cannot Delete Message!");
+      }
+      const fetched = await message.channel.fetchMessages({limit: 99});
+      message.channel.bulkDelete(fetched);
     }
     clear();
+    
 
     i++;
   }
@@ -62,21 +82,25 @@ client.on('message', message => {
     i=0;
   }
 
+  if(botconfig.server != "public" && i!=0){
+    sendMessageDiscord();
+    i=0;
+  }
+
 })
 
 function sendMessageDiscord(gchannel){
   api = 'https://world-boss-timer-bdoth.firebaseio.com/world_boss.json';
 
-  console.log("-->> Update timing...")
+  console.log("-> Update timing...")
 
   request({url: api, json: true}, function(error, response, data){
       if(!error){
-
-        findBossNextSpawn(data);
-
+        findBossNextSpawn(data);      
         sendBossTimer(listBoss);
 
-
+      }else{
+        console.log(error);
       }
   })
 
@@ -94,12 +118,19 @@ function sendBossTimer(listBoss){
     }
   }
 
-  var guildList = client.guilds.array();
-  guildList.forEach(guild => {
-    if(guild.channels.find("name","world-boss-timers")){
-      guild.channels.find("name","world-boss-timers").send('```md\n'+ text +'```');
+  if(botconfig.server == 'public'){
+    var guildList = client.guilds.array();
+    guildList.forEach(guild => {
+      if(guild.channels.find("name",botconfig.channelName)){
+        guild.channels.find("name",botconfig.channelName).send('```md\n'+ text +'```');
+      }
+    });
+  }else{
+    channel = client.channels.get(botconfig.textChannel);
+    if(channel){
+      channel.send('```md\n'+ text +'```');
     }
-  });
+  }
 
 }
 
@@ -161,6 +192,7 @@ function findBossNextSpawn(data){
   for(var i=0;i<5;i++){
     for (var key in data) {
       if(data[key].day==curr_day+i){
+        //console.log(i + ": " + data[key].name + ' |DAY: ' + data[key].day+ ' |TIME: ' + data[key].time);
         if(i==0 && hour < data[key].time){
           listBoss.push({
             name: data[key].name,
@@ -178,7 +210,7 @@ function findBossNextSpawn(data){
         }
       }
 
-      if(listBoss.length > 4){
+      if(listBoss.length == 5){
         break;
       }
     }

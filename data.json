@@ -1,0 +1,26 @@
+{
+"_comment": "1จัน | 2 อัง | 3พุธ | 4พัส | 5ศุก | 6 เสา | 0ทิต",
+"world_boss": {
+  "b01": { "day": 3, "time": 0, "name": "Kzarka" }, 
+  "b02": { "day": 4, "time": 0, "name": "Kutum" }, 
+  "b03": { "day": 0, "time": 0, "name": "Kzarka" },
+  "b04": { "day": 1, "time": 10, "name": "Kutum" }, 
+  "b05": { "day": 4, "time": 10, "name": "Kzarka" }, 
+  "b06": { "day": 5, "time": 10, "name": "Kutum" }, 
+  "b07": { "day": 0, "time": 10, "name": "Kzarka" }, 
+  "b08": { "day": 1, "time": 14, "name": "Kzarka" }, 
+  "b09": { "day": 2, "time": 14, "name": "Kutum" }, 
+  "b10": { "day": 3, "time": 14, "name": "Kzarka" }, 
+  "b11": { "day": 4, "time": 14, "name": "Kutum" }, 
+  "b12": { "day": 5, "time": 14, "name": "Kzarka" }, 
+  "b13": { "day": 6, "time": 14, "name": "Kutum" }, 
+  "b14": { "day": 0, "time": 14, "name": "Kzarka" },
+  "b15": { "day": 1, "time": 18, "name": "Kutum" }, 
+  "b16": { "day": 2, "time": 18, "name": "Kzarka" }, 
+  "b17": { "day": 3, "time": 18, "name": "Kutum" }, 
+  "b18": { "day": 4, "time": 18, "name": "Kzarka" }, 
+  "b19": { "day": 5, "time": 18, "name": "Kutum" }, 
+  "b20": { "day": 6, "time": 18, "name": "Kzarka" }, 
+  "b21": { "day": 0, "time": 18, "name": "Kutum" }
+}
+}
