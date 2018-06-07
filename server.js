@@ -21,8 +21,6 @@ express()
 )
 .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-
-
 var listBoss = [];
 
 setInterval(()=>autoUptime(), botconfig.second*1000);

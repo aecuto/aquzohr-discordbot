@@ -1,15 +1,24 @@
 # Aquzohr Discord Bot | BDO[TH] Timer (How to setup) 
 
-## สำหรับจะเป็นบอทแชร์ให้คนอื่นใช้ด้วย (ไม่ค่อยสเถียร์)
-
-* กำหนด botconfig เป็น "server": "public" และ "channelName": "world-boss-timers" | world-boss-timers คือชื่อ text channel ที่เราต้องการ
+## ใช้งานบอท
 
 * ชวนบอทเข้าห้อง Discord (ตั้งบอทเป็น admin ด้วยนะ)
 Invite Bot : https://discordapp.com/api/oauth2/authorize?client_id=452334724250075137&scope=bot&permissions=1
 
 * ถ้าเกิน 1 นาที แล้วบอทไม่ทำงานก็เข้าเว็บนี้ >> https://aquzohrbot.herokuapp.com/ เพื่อปลุก Aquzohr Bot
 
-ปล.อย่าเข้ากันหลายคนเน้อ เดียวบอทรวน :)
+
+## สำหรับเปิดเชิฟเวอร์เอง ให้คนอื่นใช้ด้วย (ไม่ค่อยสเถียร์)
+
+* แก้ token ให้เป็นบอทของตัวเองก่อน หาวิธีตาม กุเกิล เลย
+
+* กำหนด botconfig เป็น "server": "public" และ "channelName": "world-boss-timers" | world-boss-timers คือชื่อ text channel ที่เราต้องการ
+
+* รันบอทพิมพ์ (ลง nodejs กันด้วยละ)
+```
+$npm start
+```
+
 
 ## สำหรับใช้คนเดียว (Private)
 
