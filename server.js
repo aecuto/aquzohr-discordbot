@@ -10,25 +10,22 @@ const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
 
-if(botconfig.server=='public'){
-  express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
-  }
-  )
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-  setInterval(()=>autoUptime(), botconfig.second*1000);
-
-} else{
-  setInterval(()=>autoUptime(), botconfig.second*1000);
+express()
+.use(express.static(path.join(__dirname, 'public')))
+.set('views', path.join(__dirname, 'views'))
+.set('view engine', 'ejs')
+.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html')
 }
+)
+.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
 
 
 var listBoss = [];
+
+setInterval(()=>autoUptime(), botconfig.second*1000);
 
 client.on('ready', () => {
   console.log(`Login as ${client.user.tag}!`);
