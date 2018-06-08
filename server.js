@@ -43,7 +43,7 @@ function autoUptime(){
     channel = client.channels.get(botconfig.textChannel);
     //console.log(channel);
     if(channel){
-      channel.send("uptime");
+     // channel.send("uptime");
     }
   }
 }
@@ -51,10 +51,13 @@ function autoUptime(){
 var i = 0;
 client.on('message', message => {
 
+  //channel = client.channels.get(botconfig.textChannel);
   channel = client.channels.find("name",botconfig.channelName);
   var guildList = client.guilds.array();
+
+  //console.log(message.channel.messages.last(2)[0].content);
   
-  if(message.content=='uptime'){
+  if(message.channel.messages.last(2)[0].content=='uptime'){
     
     async function clear() {
       try{
@@ -66,9 +69,15 @@ client.on('message', message => {
       message.channel.bulkDelete(fetched);
     }
     clear();
-    
+    // guildList.forEach(guild => {
+    //   if(guild.channels.find("name",botconfig.channelName)){
+    //     message.guild.channels.find("name",botconfig.channelName).messages.last(2)[0].delete;
+    //   }
+    //   i++;
+    // });
 
     i++;
+
   }
 
   if(i==guildList.length){
@@ -134,6 +143,12 @@ function bossTimer(bosstime,bossday){
   //for boss
   curr_day=new Date().getDay();
   boss_time = bosstime*60*60;
+
+  // midnight time 0:00
+  if(boss_time==0){
+    boss_time=24*60*60
+  }
+
   if(bossday > curr_day){
     boss_time += (bossday-curr_day)*24*60*60;
   }
@@ -180,13 +195,21 @@ const countdown = (function () {
   }
 }());
 
+function conditionDay(day){
+  if(day==7){
+    return 0;
+  }
+  return day;
+}
+
+
 function findBossNextSpawn(data){
   curr_day=new Date().getDay();
   hour=new Date().getHours();
 
   for(var i=0;i<5;i++){
     for (var key in data) {
-      if(data[key].day==curr_day+i){
+      if(data[key].day==conditionDay(curr_day+i)){
         //console.log(i + ": " + data[key].name + ' |DAY: ' + data[key].day+ ' |TIME: ' + data[key].time);
         if(i==0 && hour < data[key].time){
           listBoss.push({
