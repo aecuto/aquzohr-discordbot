@@ -43,10 +43,11 @@ function autoUptime(){
     channel = client.channels.get(botconfig.textChannel);
     //console.log(channel);
     if(channel){
-     // channel.send("uptime");
+     channel.send("uptime");
     }
   }
 }
+
 
 var i = 0;
 client.on('message', message => {
@@ -61,28 +62,26 @@ client.on('message', message => {
   if(message.content=='uptime'){
     
     async function clear() {
-      try{
-        message.delete();
-      }catch(error){
-        console.log("-> Cannot Delete Message!");
-      }
+      message.delete();
       const fetched = await message.channel.fetchMessages({limit: 99});
       message.channel.bulkDelete(fetched);
     }
     clear();
-    // guildList.forEach(guild => {
-    //   if(guild.channels.find("name",botconfig.channelName)){
-    //     message.guild.channels.find("name",botconfig.channelName).messages.last(2)[0].delete;
-    //   }
-    //   i++;
-    // });
+    //console.log('count: ' + count);
 
     i++;
 
+    // console.log("==================");
+    // console.log(message.guild.name + ' : ' + i);
+    // console.log("Clear Message Complated!");
+    // console.log("-----------------");
+
   }
 
-  if(i==guildList.length){
-    console.log('NOW:' + guildList.length);
+  console.log("==================");
+  console.log(i + ' : ' + countGuildsHaveChannel(guildList));
+  console.log("-----------------");
+  if(i==countGuildsHaveChannel(guildList)){
     sendMessageDiscord();
     i=0;
   }
@@ -93,6 +92,24 @@ client.on('message', message => {
   }
 
 })
+
+function countGuildsHaveChannel(guildList){
+
+  var count=0;
+
+  guildList.forEach(guild => {
+    channel = guild.channels.find("name",botconfig.channelName);
+    //console.log(message.channel.permissionsFor(message.member).serialize());
+    if(channel){
+      //message.guild.channels.find("name",botconfig.channelName).messages.last(2)[0].delete;
+      count++;
+    }
+    //i++;
+  });
+
+  return count-1;
+
+}
 
 function sendMessageDiscord(gchannel){
   api = 'https://world-boss-timer-bdoth.firebaseio.com/world_boss.json';
@@ -146,8 +163,8 @@ function bossTimer(bosstime,bossday){
   boss_time = bosstime*60*60;
 
   // midnight time 0:00
-  if(boss_time==0){
-    boss_time=24*60*60
+  if(bossday==0){
+    bossday=7;
   }
 
   if(bossday > curr_day){
