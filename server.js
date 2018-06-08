@@ -52,13 +52,9 @@ function autoUptime(){
 var i = 0;
 client.on('message', message => {
 
-  //channel = client.channels.get(botconfig.textChannel);
   channel = client.channels.find("name",botconfig.channelName);
   var guildList = client.guilds.array();
 
-  //console.log(message.channel.messages.last(2)[0].content);
-  
-  //if(message.channel.messages.last(2)[0].content=='uptime'){
   if(message.content=='uptime'){
     
     async function clear() {
@@ -67,20 +63,11 @@ client.on('message', message => {
       message.channel.bulkDelete(fetched);
     }
     clear();
-    //console.log('count: ' + count);
 
     i++;
 
-    // console.log("==================");
-    // console.log(message.guild.name + ' : ' + i);
-    // console.log("Clear Message Complated!");
-    // console.log("-----------------");
-
   }
 
-  console.log("==================");
-  console.log(i + ' : ' + countGuildsHaveChannel(guildList));
-  console.log("-----------------");
   if(i==countGuildsHaveChannel(guildList)){
     sendMessageDiscord();
     i=0;
@@ -99,12 +86,9 @@ function countGuildsHaveChannel(guildList){
 
   guildList.forEach(guild => {
     channel = guild.channels.find("name",botconfig.channelName);
-    //console.log(message.channel.permissionsFor(message.member).serialize());
     if(channel){
-      //message.guild.channels.find("name",botconfig.channelName).messages.last(2)[0].delete;
       count++;
     }
-    //i++;
   });
 
   return count-1;
@@ -139,18 +123,30 @@ function sendBossTimer(listBoss){
       text += '<'+listBoss[i].name+'>    ' + bossTimer(listBoss[i].time,listBoss[i].day) + '  รอเกิดต่อไป\n';       
     }
   }
-
+  var url_link="https://www.th.playblackdesert.com/News/Notice/Detail?boardNo=947&boardType=2";
   if(botconfig.server == 'public'){
     var guildList = client.guilds.array();
     guildList.forEach(guild => {
       if(guild.channels.find("name",botconfig.channelName)){
-        guild.channels.find("name",botconfig.channelName).send('```md\n'+ text +'```');
+        guild.channels.find("name",botconfig.channelName).send({embed: {
+          color: 0xFF8F18,
+          title: ":timer: Updated World Boss Timer",
+          url: url_link,
+          description: "```md\n"+ text + "```",
+          }
+        });
       }
     });
   }else{
     channel = client.channels.get(botconfig.textChannel);
     if(channel){
-      channel.send('```md\n'+ text +'```');
+      channel.send({embed: {
+        color: 0xFF8F18,
+        title: ":timer: Updated World Boss Timer",
+        url: url_link,
+        description: "```md\n"+ text + "```",
+        }
+      });
     }
   }
 
