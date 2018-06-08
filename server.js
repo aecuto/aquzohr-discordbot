@@ -95,7 +95,7 @@ function countGuildsHaveChannel(guildList){
 
 }
 
-function sendMessageDiscord(gchannel){
+function sendMessageDiscord(){
   api = 'https://world-boss-timer-bdoth.firebaseio.com/world_boss.json';
 
   console.log("-> Update timing...")
@@ -114,7 +114,7 @@ function sendMessageDiscord(gchannel){
 
 function sendBossTimer(listBoss){
 
-  var text;
+  var text = '';
   for(var i=0;i<listBoss.length;i++){
     //console.log(listBoss[i].name);
     if(i==0){

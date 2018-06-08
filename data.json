@@ -14,13 +14,13 @@
   "b11": { "day": 4, "time": 14, "name": "Kutum" }, 
   "b12": { "day": 5, "time": 14, "name": "Kzarka" }, 
   "b13": { "day": 6, "time": 14, "name": "Kutum" }, 
-  "b14": { "day": 0, "time": 14, "name": "Kzarka" },
+  "b14": { "day": 0, "time": 14, "name": "Kutum" },
   "b15": { "day": 1, "time": 18, "name": "Kutum" }, 
   "b16": { "day": 2, "time": 18, "name": "Kzarka" }, 
   "b17": { "day": 3, "time": 18, "name": "Kutum" }, 
   "b18": { "day": 4, "time": 18, "name": "Kzarka" }, 
   "b19": { "day": 5, "time": 18, "name": "Kutum" }, 
   "b20": { "day": 6, "time": 18, "name": "Kzarka" }, 
-  "b21": { "day": 0, "time": 18, "name": "Kutum" }
+  "b21": { "day": 0, "time": 18, "name": "Kzarka" }
 }
 }
