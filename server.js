@@ -57,7 +57,8 @@ client.on('message', message => {
 
   //console.log(message.channel.messages.last(2)[0].content);
   
-  if(message.channel.messages.last(2)[0].content=='uptime'){
+  //if(message.channel.messages.last(2)[0].content=='uptime'){
+  if(message.content=='uptime'){
     
     async function clear() {
       try{
