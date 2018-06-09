@@ -53,7 +53,6 @@ var i = 0;
 client.on('message', message => {
 
   channel = client.channels.find("name",botconfig.channelName);
-  var guildList = client.guilds.array();
 
   if(message.content=='uptime'){
     
@@ -68,7 +67,7 @@ client.on('message', message => {
 
   }
 
-  if(i==countGuildsHaveChannel(guildList)){
+  if(i==countGuildsHaveChannel()){
     sendMessageDiscord();
     i=0;
   }
@@ -80,7 +79,9 @@ client.on('message', message => {
 
 })
 
-function countGuildsHaveChannel(guildList){
+function countGuildsHaveChannel(){
+
+  var guildList = client.guilds.array();
 
   var count=0;
 
@@ -133,6 +134,15 @@ function sendBossTimer(listBoss){
           title: ":timer: Updated World Boss Timer",
           url: url_link,
           description: "```md\n"+ text + "```",
+          fields: [
+            {
+              name: "Update",
+              value: "สามารถดูการอัพเดท ได้ที่ [See Updated](https://github.com/Aquzohr/aquzohrDiscordbot/blob/master/README.md)"
+            }
+          ],
+          footer: {
+            text: "Bot Online: " + countGuildsHaveChannel() + '/' + guildList.length
+          }
           }
         });
       }
