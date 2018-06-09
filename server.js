@@ -119,7 +119,7 @@ function sendBossTimer(listBoss){
   for(var i=0;i<listBoss.length;i++){
     //console.log(listBoss[i].name);
     if(i==0){
-      text = '<'+listBoss[i].name+'>    ' + bossTimer(listBoss[i].time,listBoss[i].day) + '  ใกล้จะเกิดแล้ว\n'; 
+      text = '<'+listBoss[i].name+'>    ' + bossTimer(listBoss[i].time,listBoss[i].day) + '  ตัวที่จะเกิดถัดไป\n'; 
     }else{
       text += '<'+listBoss[i].name+'>    ' + bossTimer(listBoss[i].time,listBoss[i].day) + '  รอเกิดต่อไป\n';       
     }
@@ -137,7 +137,11 @@ function sendBossTimer(listBoss){
           fields: [
             {
               name: "Update",
-              value: "สามารถดูการอัพเดท ได้ที่ [See Updated](https://github.com/Aquzohr/aquzohrDiscordbot/blob/master/README.md)"
+              value: "สามารถดูการอัพเดท ได้ที่ [Click](https://github.com/Aquzohr/aquzohrDiscordbot/blob/master/README.md)"
+            },
+            {
+              name: "Online Timer",
+              value: "สามารถดูผ่านเว็บได้ด้วยนะ [Click](https://world-boss-timer-bdoth.firebaseapp.com/)"
             }
           ],
           footer: {
@@ -169,7 +173,7 @@ function bossTimer(bosstime,bossday){
   boss_time = bosstime*60*60;
 
   // midnight time 0:00
-  if(bossday==0){
+  if(bossday==0 && curr_day != 0){
     bossday=7;
   }
 
@@ -252,7 +256,7 @@ function findBossNextSpawn(data){
         }
       }
 
-      if(listBoss.length == 5){
+      if(listBoss.length >= 5){
         break;
       }
     }
