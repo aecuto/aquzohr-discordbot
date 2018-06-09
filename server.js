@@ -235,10 +235,15 @@ function findBossNextSpawn(data){
   curr_day=new Date().getDay();
   hour=new Date().getHours();
 
-  for(var i=0;i<5;i++){
+  var i=0;
+  do{
     for (var key in data) {
       if(data[key].day==conditionDay(curr_day+i)){
         //console.log(i + ": " + data[key].name + ' |DAY: ' + data[key].day+ ' |TIME: ' + data[key].time);
+        if(listBoss.length == 5){
+          break;
+        }
+
         if(i==0 && hour < data[key].time){
           listBoss.push({
             name: data[key].name,
@@ -255,12 +260,9 @@ function findBossNextSpawn(data){
           });
         }
       }
-
-      if(listBoss.length >= 5){
-        break;
-      }
     }
-  }
+    i++;
+  }while(listBoss.length < 5);
 
 };
 
