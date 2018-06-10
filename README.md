@@ -24,7 +24,7 @@ $npm start
 
 ## สำหรับใช้คนเดียว (Private)
 
-* ชวนบอทเข้าห้อง Discord : https://discordapp.com/api/oauth2/authorize?client_id=452334724250075137&scope=bot&permissions=8192
+* แก้ token ให้เป็นบอทของตัวเองก่อน หาวิธีตาม กุเกิล เลย
 
 * กำหนด botconfig เป็น "server": "unpublic" หรืออะไรก็ได้ที่ไม่ใช่ public
 
