@@ -1,5 +1,5 @@
 {
-    "token": process.env.bot_token,
+    "token": "",
     "textChannel": "",
     "second": 60,
     "server": "public",

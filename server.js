@@ -267,4 +267,6 @@ function findBossNextSpawn(data){
 };
 
 
-client.login(botconfig.token);
+//client.login(botconfig.token);
+client.login(process.env.bot_token);
+
