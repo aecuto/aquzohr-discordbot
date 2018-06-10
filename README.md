@@ -4,8 +4,8 @@
 
 * สร้าง text-channel ชื่อว่า world-boss-timers
 
-* ชวนบอทเข้าห้อง Discord (ตั้งบอทเป็น admin ด้วยนะ)
-Invite Bot : https://discordapp.com/api/oauth2/authorize?client_id=452334724250075137&scope=bot&permissions=1 เป็นอันเสร็จ
+* ชวนบอทเข้าห้อง Discord 
+Invite Bot : https://discordapp.com/api/oauth2/authorize?client_id=452334724250075137&scope=bot&permissions=8192 เป็นอันเสร็จ
 
 * ถ้าเกิน 1 นาที แล้วบอทไม่ทำงานก็เข้าเว็บนี้ >> https://aquzohrbot.herokuapp.com/ เพื่อปลุก Aquzohr Bot
 
@@ -24,7 +24,7 @@ $npm start
 
 ## สำหรับใช้คนเดียว (Private)
 
-* ชวนบอทเข้าห้อง Discord (ตั้งบอทเป็น admin ด้วยนะ): https://discordapp.com/api/oauth2/authorize?client_id=452334724250075137&scope=bot&permissions=1 
+* ชวนบอทเข้าห้อง Discord : https://discordapp.com/api/oauth2/authorize?client_id=452334724250075137&scope=bot&permissions=8192
 
 * กำหนด botconfig เป็น "server": "unpublic" หรืออะไรก็ได้ที่ไม่ใช่ public
 

@@ -1,7 +1,7 @@
 {
-    "token": "NDUyMzM0NzI0MjUwMDc1MTM3.Dfd_Bg.0z25Ua9ep6aq_GQp4y0pSAv1bE0",
-    "textChannel": "453800598278766592",
-    "second": 60,
+    "token": process.env.bot_token,
+    "textChannel": "",
+    "second": 5,
     "server": "public",
     "channelName": "world-boss-timers"
 }
