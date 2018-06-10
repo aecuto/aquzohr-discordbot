@@ -1,7 +1,7 @@
 {
     "token": process.env.bot_token,
     "textChannel": "",
-    "second": 5,
+    "second": 60,
     "server": "public",
     "channelName": "world-boss-timers"
 }
