@@ -188,7 +188,11 @@ function bossTimer(bosstime,bossday){
 
   current_time = (hour*60*60) + (min*60) + sec;
 
-  return countdown(boss_time-current_time);
+  if(boss_time>current_time){
+    return countdown(boss_time-current_time);
+  }
+
+  return 0;
 }
 
 const countdown = (function () {
@@ -267,6 +271,6 @@ function findBossNextSpawn(data){
 };
 
 
-//client.login(botconfig.token);
+//client.login("");
 client.login(process.env.bot_token);
 
