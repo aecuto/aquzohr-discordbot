@@ -67,7 +67,7 @@ client.on('message', message => {
 
   }
 
-  if(i==countGuildsHaveChannel()){
+  if(i==(countGuildsHaveChannel()-1)){
     sendMessageDiscord();
     i=0;
   }
@@ -88,11 +88,12 @@ function countGuildsHaveChannel(){
   guildList.forEach(guild => {
     channel = guild.channels.find("name",botconfig.channelName);
     if(channel){
+      //console.log(channel.guild.name);
       count++;
     }
   });
 
-  return count-1;
+  return count;
 
 }
 
@@ -181,6 +182,11 @@ function bossTimer(bosstime,bossday){
     boss_time += (bossday-curr_day)*24*60*60;
   }
 
+  //fixed show time saturday to monday
+  if(curr_day==6 && bossday==1){
+    boss_time += 2*24*60*60;      
+  }
+
   //curent
   hour=new Date().getHours();
   min= new Date().getMinutes();
@@ -229,7 +235,7 @@ const countdown = (function () {
 
 function conditionDay(day){
   if(day==7){
-    return 0;
+    return day-7;
   }
   return day;
 }
@@ -239,8 +245,7 @@ function findBossNextSpawn(data){
   curr_day=new Date().getDay();
   hour=new Date().getHours();
 
-  var i=0;
-  do{
+  for(var i =0;i<5;i++){
     for (var key in data) {
       if(data[key].day==conditionDay(curr_day+i)){
         //console.log(i + ": " + data[key].name + ' |DAY: ' + data[key].day+ ' |TIME: ' + data[key].time);
@@ -265,12 +270,12 @@ function findBossNextSpawn(data){
         }
       }
     }
-    i++;
-  }while(listBoss.length < 5);
+
+  }
 
 };
 
 
-//client.login("");
-client.login(process.env.bot_token);
+
+//client.login(process.env.bot_token);
 
