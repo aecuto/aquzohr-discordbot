@@ -23,61 +23,12 @@ express()
 
 var listBoss = [];
 
-setInterval(()=>autoUptime(), botconfig.second*1000);
+setInterval(()=>sendMessageDiscord(), botconfig.second*1000);
 
 client.on('ready', () => {
   console.log(`Login as ${client.user.tag}!`);
 });
 
-function autoUptime(){
-
-  if(botconfig.server == 'public'){
-    var guildList = client.guilds.array();
-    //console.log(guildList);
-    guildList.forEach(guild => {
-      if(guild.channels.find("name",botconfig.channelName)){
-        guild.channels.find("name",botconfig.channelName).send("uptime");
-      }
-    });
-  }else{
-    channel = client.channels.get(botconfig.textChannel);
-    //console.log(channel);
-    if(channel){
-     channel.send("uptime");
-    }
-  }
-}
-
-
-var i = 0;
-client.on('message', message => {
-
-  channel = client.channels.find("name",botconfig.channelName);
-
-  if(message.content=='uptime'){
-    
-    async function clear() {
-      message.delete();
-      const fetched = await message.channel.fetchMessages({limit: 99});
-      message.channel.bulkDelete(fetched);
-    }
-    clear();
-
-    i++;
-
-  }
-
-  if(i==(countGuildsHaveChannel()-1)){
-    sendMessageDiscord();
-    i=0;
-  }
-
-  if(botconfig.server != "public" && i!=0){
-    sendMessageDiscord();
-    i=0;
-  }
-
-})
 
 function countGuildsHaveChannel(){
 
@@ -120,32 +71,35 @@ function sendBossTimer(listBoss){
   for(var i=0;i<listBoss.length;i++){
     //console.log(listBoss[i].name);
     if(i==0){
-      text = '<'+listBoss[i].name+'>    ' + bossTimer(listBoss[i].time,listBoss[i].day) + '  ตัวที่จะเกิดถัดไป\n'; 
+      text = '* <'+listBoss[i].name+'>\n [' + bossTimer(listBoss[i].time,listBoss[i].day) + '](กำลังจะเกิด)\n ------ \n'; 
     }else{
-      text += '<'+listBoss[i].name+'>    ' + bossTimer(listBoss[i].time,listBoss[i].day) + '  รอเกิดต่อไป\n';       
+      text += '* <'+listBoss[i].name+'>\n [' + bossTimer(listBoss[i].time,listBoss[i].day) + '](รอเกิดอยู่)\n ------ \n';       
     }
   }
-  var url_link="https://www.th.playblackdesert.com/News/Notice/Detail?boardNo=947&boardType=2";
+
   if(botconfig.server == 'public'){
     var guildList = client.guilds.array();
     guildList.forEach(guild => {
       if(guild.channels.find("name",botconfig.channelName)){
         guild.channels.find("name",botconfig.channelName).send({embed: {
           color: 0xFF8F18,
-          title: ":timer: Updated World Boss Timer",
-          url: url_link,
+          title: ":calendar_spiral:️ World Boss Schedule",
           description: "```md\n"+ text + "```",
           fields: [
             {
-              name: "Online Timer",
-              value: "สามารถดูผ่านเว็บได้ด้วยนะ [Click](https://world-boss-timer-bdoth.firebaseapp.com/)"
+              name: "World Boss Timer",
+              value: "สามารถดูผ่านเว็บได้ด้วยนะ [https://world-boss-timer-bdoth.firebaseapp.com/](https://world-boss-timer-bdoth.firebaseapp.com/)"
+            },
+            {
+              name: "Wake Up",
+              value: "ปลุกบอท [https://aquzohrbot.herokuapp.com/](https://aquzohrbot.herokuapp.com/)"
             }
           ],
           footer: {
             text: "Bot Online: " + countGuildsHaveChannel() + '/' + guildList.length
           }
           }
-        });
+        }).then(m => m.delete((botconfig.second-1)*1000));
       }
     });
   }else{
@@ -153,11 +107,10 @@ function sendBossTimer(listBoss){
     if(channel){
       channel.send({embed: {
         color: 0xFF8F18,
-        title: ":timer: Updated World Boss Timer",
-        url: url_link,
+        title: ":calendar_spiral:️ World Boss Schedule",
         description: "```md\n"+ text + "```",
         }
-      });
+      }).then(m => m.delete((botconfig.second-1)*1000));
     }
   }
 
@@ -223,11 +176,11 @@ const countdown = (function () {
 
       const tmp = [];
 
-      (d) && tmp.push(d + 'd');
+      (d) && tmp.push(d + 'วัน ');
 
-      (d || h) && tmp.push(h + 'h');
+      (d || h) && tmp.push(h + 'ชั่วโมง ');
 
-      (d || h || m) && tmp.push(m + 'm');
+      (d || h || m) && tmp.push(m + 'นาที');
 
       //tmp.push(s + 's');
 
@@ -278,4 +231,5 @@ function findBossNextSpawn(data){
 };
 
 client.login(process.env.bot_token);
+//client.login('');
 

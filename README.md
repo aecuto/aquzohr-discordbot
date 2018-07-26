@@ -7,7 +7,7 @@
 * ชวนบอทเข้าห้อง Discord 
 Invite Bot : https://discordapp.com/api/oauth2/authorize?client_id=452334724250075137&scope=bot&permissions=8192 เป็นอันเสร็จ
 
-* ถ้าเกิน 1 นาที แล้วบอทไม่ทำงานก็เข้าเว็บนี้ >> https://aquzohrbot.herokuapp.com/ เพื่อปลุก Aquzohr Bot
+* ปลอดภัย 100% ไม่ต้องตั้ง bot ให้เป็น Admin
 
 
 ## สำหรับเปิดเชิฟเวอร์เอง ให้คนอื่นใช้ด้วย (ไม่ค่อยสเถียร์)
