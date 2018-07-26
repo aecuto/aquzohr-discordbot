@@ -137,10 +137,6 @@ function sendBossTimer(listBoss){
           description: "```md\n"+ text + "```",
           fields: [
             {
-              name: "Update",
-              value: "สามารถดูการอัพเดท ได้ที่ [Click](https://github.com/Aquzohr/aquzohrDiscordbot/blob/master/README.md)"
-            },
-            {
               name: "Online Timer",
               value: "สามารถดูผ่านเว็บได้ด้วยนะ [Click](https://world-boss-timer-bdoth.firebaseapp.com/)"
             }
@@ -172,6 +168,12 @@ function bossTimer(bosstime,bossday){
   //for boss
   curr_day=new Date().getDay();
   boss_time = bosstime*60*60;
+
+  if(boss_time == 0.15){
+    boss_time = 15*60;
+  }else{
+    boss_time = bosstime*60*60;
+  }
 
   // midnight time 0:00
   if(bossday==0 && curr_day != 0){
