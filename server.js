@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 var request = require('request');
-var sleep = require('sleep');
 
 const botconfig = require('./botconfig.json');
 
@@ -24,10 +23,65 @@ express()
 var listBoss = [];
 
 setInterval(()=>sendMessageDiscord(), botconfig.second*1000);
+setInterval(()=>sendNotification(), 1000);
+
 
 client.on('ready', () => {
   console.log(`Login as ${client.user.tag}!`);
+
+  var guildList = client.guilds.array();
+
+  console.log(`clear message!`);
+  guildList.forEach(guild => {
+    channel = guild.channels.find("name",botconfig.channelName);
+    if(channel){
+      //console.log(channel.guild.name);
+       channel.send('clear message!');
+    }
+  });
+
 });
+
+client.on('message', message => {
+
+  channel = client.channels.find("name",botconfig.channelName);
+
+  if(message.content=='clear message!'){
+    message.channel.fetchMessages()
+          .then(messages => {
+            message.channel.bulkDelete(messages);
+            messagesDeleted = messages.array().length; // number of messages deleted
+            console.log('Deletion of messages successful. Total messages deleted: '+messagesDeleted)
+          })
+          .catch(err => {
+            console.log('Error while doing Bulk Delete');
+            console.log(err);
+          });
+  }
+  
+});
+
+function sendNotification(){
+
+  if(listBoss[0] === undefined)
+    return
+
+  var time_notification = botconfig.time_notification*60;
+
+  if(bossTimer(listBoss[0].time,listBoss[0].day) == time_notification){
+    var guildList = client.guilds.array();
+
+    console.log(`-> Send Notification!`);
+    guildList.forEach(guild => {
+      channel = guild.channels.find("name",botconfig.channelNotificationName);
+      if(channel){
+        //console.log(channel.guild.name);
+        channel.send('@everyone ' + listBoss[0].name + ' จะเกิดในอีก 15 นาทีนี้!!');
+      }
+    });
+
+  }
+}
 
 
 function countGuildsHaveChannel(){
@@ -71,9 +125,9 @@ function sendBossTimer(listBoss){
   for(var i=0;i<listBoss.length;i++){
     //console.log(listBoss[i].name);
     if(i==0){
-      text = '* <'+listBoss[i].name+'>\n [' + bossTimer(listBoss[i].time,listBoss[i].day) + '](กำลังจะเกิด)\n ------ \n'; 
+      text = '* <'+listBoss[i].name+'>\n [' + countdown(bossTimer(listBoss[i].time,listBoss[i].day)) + '](กำลังจะเกิด)\n ------ \n'; 
     }else{
-      text += '* <'+listBoss[i].name+'>\n [' + bossTimer(listBoss[i].time,listBoss[i].day) + '](รอเกิดอยู่)\n ------ \n';       
+      text += '* <'+listBoss[i].name+'>\n [' + countdown(bossTimer(listBoss[i].time,listBoss[i].day)) + '](รอเกิดอยู่)\n ------ \n';       
     }
   }
 
@@ -91,8 +145,8 @@ function sendBossTimer(listBoss){
               value: "สามารถดูผ่านเว็บได้ด้วยนะ [https://world-boss-timer-bdoth.firebaseapp.com/](https://world-boss-timer-bdoth.firebaseapp.com/)"
             },
             {
-              name: "Wake Up",
-              value: "ปลุกบอท [https://aquzohrbot.herokuapp.com/](https://aquzohrbot.herokuapp.com/)"
+              name: "๊Updated",
+              value: "สร้างห้อง notification มันจะแจ้ง 15 นาทีก่อนบอสจะเกิด"
             }
           ],
           footer: {
@@ -120,7 +174,7 @@ function bossTimer(bosstime,bossday){
 
   //for boss
   curr_day=new Date().getDay();
-  boss_time = bosstime*60*60;
+  var boss_time = 0;
 
   if(boss_time == 0.15){
     boss_time = 15*60;
@@ -150,7 +204,7 @@ function bossTimer(bosstime,bossday){
   current_time = (hour*60*60) + (min*60) + sec;
 
   if(boss_time>current_time){
-    return countdown(boss_time-current_time);
+    return boss_time-current_time;
   }
 
   return 0;
@@ -230,6 +284,6 @@ function findBossNextSpawn(data){
 
 };
 
-client.login(process.env.bot_token);
-//client.login('');
+//client.login(process.env.bot_token);
+client.login(botconfig.token);
 

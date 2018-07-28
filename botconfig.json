@@ -1,7 +1,9 @@
 {
     "token": "",
     "textChannel": "",
+    "time_notification": 15,
     "second": 60,
     "server": "public",
-    "channelName": "world-boss-timers"
+    "channelName": "world-boss-timers",
+    "channelNotificationName": "notification"
 }
