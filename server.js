@@ -25,18 +25,17 @@ var listBoss = [];
 setInterval(()=>sendMessageDiscord(), botconfig.second*1000);
 setInterval(()=>sendNotification(), 1000);
 
-
 client.on('ready', () => {
   console.log(`Login as ${client.user.tag}!`);
 
   var guildList = client.guilds.array();
 
-  console.log(`clear message!`);
+  console.log(gettime() + ` -> clear message!`);
   guildList.forEach(guild => {
     channel = guild.channels.find("name",botconfig.channelName);
     if(channel){
       //console.log(channel.guild.name);
-       channel.send('clear message!');
+       channel.send('clear message!').catch(console.error);
     }
   });
 
@@ -71,12 +70,12 @@ function sendNotification(){
   if(bossTimer(listBoss[0].time,listBoss[0].day) == time_notification){
     var guildList = client.guilds.array();
 
-    console.log(`-> Send Notification!`);
+    console.log(gettime() + `-> Send Notification!`);
     guildList.forEach(guild => {
       channel = guild.channels.find("name",botconfig.channelNotificationName);
       if(channel){
         //console.log(channel.guild.name);
-        channel.send('@everyone ' + listBoss[0].name + ' จะเกิดในอีก 15 นาทีนี้!!');
+        channel.send('@everyone ' + listBoss[0].name + ' จะเกิดในอีก 15 นาทีนี้!!').catch(console.error);
       }
     });
 
@@ -102,10 +101,17 @@ function countGuildsHaveChannel(){
 
 }
 
+function gettime(){
+  time=new Date().getTime();
+  var datetime = new Date(time);
+  return datetime;
+}
+
 function sendMessageDiscord(){
   api = 'https://world-boss-timer-bdoth.firebaseio.com/world_boss.json';
 
-  console.log("-> Update timing...")
+
+  console.log(gettime() + " -> Update timing...")
 
   request({url: api, json: true}, function(error, response, data){
       if(!error){
@@ -154,7 +160,7 @@ function sendBossTimer(listBoss){
             text: "Bot Online: " + countGuildsHaveChannel() + '/' + guildList.length
           }
           }
-        }).then(m => m.delete((botconfig.second-1)*1000));
+        }).then(m => m.delete((botconfig.second-1)*1000)).catch(console.error);
       }
     });
   }else{
