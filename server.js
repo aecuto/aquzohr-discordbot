@@ -152,8 +152,8 @@ function sendBossTimer(listBoss){
               value: "สามารถดูผ่านเว็บได้ด้วยนะ [https://world-boss-timer-bdoth.firebaseapp.com/](https://world-boss-timer-bdoth.firebaseapp.com/)"
             },
             {
-              name: "๊Updated",
-              value: "สร้างห้อง notification มันจะแจ้ง 15 นาทีก่อนบอสจะเกิด"
+              name: "Wake Up",
+              value: "ปลุกบอท: [CLICK](https://aquzohr.herokuapp.com/)"
             }
           ],
           footer: {
