@@ -18,7 +18,7 @@ express()
   res.sendFile(__dirname + '/index.html')
 }
 )
-.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+.listen(PORT, () => console.log(`Listening on localhost:${ PORT }`));
 
 var listBoss = [];
 
