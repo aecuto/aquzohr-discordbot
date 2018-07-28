@@ -70,12 +70,12 @@ function sendNotification(){
   if(bossTimer(listBoss[0].time,listBoss[0].day) == time_notification){
     var guildList = client.guilds.array();
 
-    console.log(gettime() + `-> Send Notification!`);
+    console.log(gettime() + ` -> Send Notification!`);
     guildList.forEach(guild => {
       channel = guild.channels.find("name",botconfig.channelNotificationName);
       if(channel){
         //console.log(channel.guild.name);
-        channel.send('@everyone ' + listBoss[0].name + ' จะเกิดในอีก 15 นาทีนี้!!').catch(console.error);
+        channel.send('@everyone ' + listBoss[0].name + ' จะเกิดในอีก 15 นาที... นี้!!');
       }
     });
 
@@ -160,7 +160,7 @@ function sendBossTimer(listBoss){
             text: "Bot Online: " + countGuildsHaveChannel() + '/' + guildList.length
           }
           }
-        }).then(m => m.delete((botconfig.second-1)*1000)).catch(console.error);
+        }).then(m => m.delete((botconfig.second-1)*1000));
       }
     });
   }else{
