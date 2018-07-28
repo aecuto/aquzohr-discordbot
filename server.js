@@ -109,6 +109,7 @@ function sendMessageDiscord(){
 
   request({url: api, json: true}, function(error, response, data){
       if(!error){
+        listBoss = [];
         findBossNextSpawn(data);      
         sendBossTimer(listBoss);
 
@@ -243,7 +244,7 @@ const countdown = (function () {
 }());
 
 function conditionDay(day){
-  if(day==7){
+  if(day>=7){
     return day-7;
   }
   return day;
@@ -281,6 +282,9 @@ function findBossNextSpawn(data){
     }
 
   }
+
+  // console.log(listBoss.length);
+  // console.log(listBoss);
 
 };
 
