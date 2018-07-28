@@ -2,7 +2,7 @@
 
 ## ใช้งานบอท
 
-* สร้าง text-channel ชื่อว่า world-boss-timers และ notification
+* สร้าง text-channel ชื่อว่า world-boss-timers (mute ด้วยแนะนำ) และ notification
 
 * ชวนบอทเข้าห้อง Discord 
 Invite Bot : https://discordapp.com/api/oauth2/authorize?client_id=452334724250075137&scope=bot&permissions=8192 เป็นอันเสร็จ
