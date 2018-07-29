@@ -182,11 +182,11 @@ function bossTimer(bosstime,bossday){
   //for boss
   curr_day=new Date().getDay();
   var boss_time = 0;
-
-  if(boss_time == 0.15){
-    boss_time = 15*60;
+  
+  if(bosstime==0.15){
+	boss_time = 15*60;
   }else{
-    boss_time = bosstime*60*60;
+	boss_time = bosstime*60*60;
   }
 
   // midnight time 0:00
