@@ -183,8 +183,8 @@ function bossTimer(bosstime,bossday){
   curr_day=new Date().getDay();
   var boss_time = 0;
   
-  if(bosstime==0.15){
-	boss_time = 15*60;
+  if(bosstime==0.3){
+	boss_time = 30*60;
   }else{
 	boss_time = bosstime*60*60;
   }
